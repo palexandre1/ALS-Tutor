@@ -1,0 +1,15 @@
+services:
+  frontend:
+    build:
+      context: ./als-tutor
+      dockerfile: Dockerfile
+    develop:
+      watch:
+        - action: sync
+          path: ./als-tutor/src
+          target: /usr/src/app/src
+        - action: rebuild
+          path: ./als-tutor/package.json
+          target: /usr/src/app/package.json
+    ports:
+      - "4200:4200"
