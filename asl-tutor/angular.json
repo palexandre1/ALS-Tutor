@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "als-tutor": {
+    "asl-tutor": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/als-tutor",
+            "outputPath": "dist/asl-tutor",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -57,10 +57,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "als-tutor:build:production"
+              "buildTarget": "asl-tutor:build:production"
             },
             "development": {
-              "buildTarget": "als-tutor:build:development"
+              "buildTarget": "asl-tutor:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -68,7 +68,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "als-tutor:build"
+            "buildTarget": "asl-tutor:build"
           }
         },
         "test": {

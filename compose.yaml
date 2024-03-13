@@ -1,15 +1,15 @@
 services:
   frontend:
     build:
-      context: ./als-tutor
+      context: ./asl-tutor
       dockerfile: Dockerfile
     develop:
       watch:
         - action: sync
-          path: ./als-tutor/src
+          path: ./asl-tutor/src
           target: /usr/src/app/src
         - action: rebuild
-          path: ./als-tutor/package.json
+          path: ./asl-tutor/package.json
           target: /usr/src/app/package.json
     ports:
       - "4200:4200"
