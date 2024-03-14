@@ -8,3 +8,22 @@ h1, h3 {
 body {
   background-color: #FBFADA;
 }
+
+#container {
+
+}
+
+#button_container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#camera {
+  display: flex;
+  flex-direction: column;
+}
+
+.snapshot {
+  display: flex;
+  justify-content: center;
+}

@@ -2,12 +2,16 @@
 
 <h3>Welcome to ASL Tutor! Where you can practice your American Sign Language!</h3>
 
-<div>
-
-  <button type="button">Speech to ASL</button>
-
-  <button type="button">Text to ASL</button>
-
-  <button type="button">ASL to Text</button>
-
+<div id="container">
+  <div id="button_container">
+    <button type="button">Speech to ASL</button>
+    <button type="button">Text to ASL</button>
+    <button (click)="toggleCamera()" type="button">ASL to Text</button>
+  </div>
+  <div id="camera" *ngIf="visible">
+    <app-camera (pictureTaken)="handleImage($event)"></app-camera>
+    <div class="snapshot" *ngIf="webcamImage">
+      <img [src]="webcamImage.imageAsDataUrl" />
+    </div>
+  </div>
 </div>
