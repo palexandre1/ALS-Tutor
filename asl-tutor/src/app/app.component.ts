@@ -29,5 +29,6 @@ export class AppComponent {
 
   handleImage(webcamImage: WebcamImage) {
     this.webcamImage = webcamImage;
+    console.log("here")
   }
 }

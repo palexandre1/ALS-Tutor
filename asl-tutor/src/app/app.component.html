@@ -12,6 +12,7 @@
     <app-camera (pictureTaken)="handleImage($event)"></app-camera>
     <div class="snapshot" *ngIf="webcamImage">
       <img [src]="webcamImage.imageAsDataUrl" />
+      <button type="button">Submit</button>
     </div>
   </div>
 </div>
