@@ -1,1 +1,3 @@
 flask
+numpy
+tensorflow_datasets

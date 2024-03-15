@@ -19,10 +19,11 @@ services:
       dockerfile: Dockerfile
     develop:
       watch:
-        - action: sync
+        - action: sync+restart
           path: ./backend
-          target: /app/backend
+          target: /app
         - action: rebuild
           path: ./backend/requirements.txt
     ports:
       - "8080:8080"
+    platform: linux/amd64
