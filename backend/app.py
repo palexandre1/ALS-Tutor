@@ -1,15 +1,28 @@
-from flask import Flask,jsonify,request
 import numpy as np
-import os
+import json, requests
 import tensorflow as tf
-# import tensorflow_datasets as tfds
+from io import BytesIO
+from tensorflow.keras.preprocessing import image
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
+class_names = ['a','b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+               'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
+               'y', 'z']
 
 @app.route("/")
 def home():
-    print(tf.__version__)
-    return 'Hello and welcome to Docker!!'
+
+    return 'Welcome to Flask!'
+
+@app.route('/predict', methods=['POST'])
+def predict():
+
+    return jsonify('Success')
+
+
 
 if __name__=="__main__":
     app.run(debug=True,host="0.0.0.0",port=8080)

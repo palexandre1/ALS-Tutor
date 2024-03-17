@@ -13,15 +13,16 @@ services:
           target: /usr/src/app/package.json
     ports:
       - "4200:4200"
+
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
     develop:
       watch:
-        - action: sync+restart
-          path: ./backend
-          target: /app
+        # - action: sync+restart
+        #   path: ./backend
+        #   target: /app
         - action: rebuild
           path: ./backend/requirements.txt
     ports:
