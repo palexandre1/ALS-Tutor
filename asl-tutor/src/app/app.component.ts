@@ -35,22 +35,31 @@ export class AppComponent {
 
   handleImage(webcamImage: WebcamImage) {
     this.webcamImage = webcamImage;
-  }
+ }
 
   uploadImage() {
     let url = 'http://127.0.0.1:8080/predict';
 
     if (this.webcamImage) {
       this.imgURL = this.webcamImage.imageAsDataUrl
-    }
-
-    let formData = new FormData();
-    formData.append('file', this.imgURL);
-
-    this.httpClient.post(url,formData).subscribe(
-      data => {
-        console.log(data)
+      const arr = this.webcamImage.imageAsDataUrl.split(",");
+      // const mime = arr[0].match(/:(.*?);/)[1];
+      const bstr = atob(arr[1]);
+      let n = bstr.length;
+      const u8arr = new Uint8Array(n);
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
       }
-    )
+      const file: File = new File([u8arr], 'snapshot.jpeg', { type: 'image/jpeg' })
+      console.log(file);
+
+      let formData = new FormData();
+      formData.append('file', file);
+
+      this.httpClient.post(url,formData).subscribe(
+        data => {
+          console.log(data)
+        })
+    }
   }
 }

@@ -1,16 +1,16 @@
 import numpy as np
 import json, requests
 import tensorflow as tf
+import os
+import random
 from io import BytesIO
 from tensorflow.keras.preprocessing import image
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from asl_recognition_service import ASL_Recognition_Service
 
 app = Flask(__name__)
 CORS(app)
-class_names = ['a','b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
-               'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
-               'y', 'z']
 
 @app.route("/")
 def home():
@@ -20,8 +20,25 @@ def home():
 @app.route('/predict', methods=['POST'])
 def predict():
 
-    return jsonify('Success')
+    # get image from client and save it
+    image = request.files["file"]
+    if image.filename == '':
+      return jsonify('No selected file')
+    file_name = str(random.randint(0, 100000))
+    image.save(file_name)
 
+    # invoke sign language recognition service
+    asl = ASL_Recognition_Service()
+
+    # make a prediction
+    predicted_letter = asl.predict(file_name)
+
+    # remove the audio file
+    os.remove(file_name)
+
+    # send back the predicted letter in json format
+    data = {"letter": predicted_letter}
+    return jsonify(data)
 
 
 if __name__=="__main__":
