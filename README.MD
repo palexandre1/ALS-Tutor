@@ -9,3 +9,7 @@ Run `docker compose watch` which will start a web application that consists of a
 ## Access the application
 
 In your browser navigate to `http://localhost:4200` (or whatever port you defined for the front-end in `docker-compose.yml`).
+
+## Train model
+
+In the flask-backend container, run `python ./model.py`. The model will save in the directory as `asl_model.keras`. Use `docker cp` to save the model to your host machine.
