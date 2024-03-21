@@ -10,7 +10,7 @@
   </div>
   <div id="camera" *ngIf="visible">
     <app-camera (pictureTaken)="handleImage($event)"></app-camera>
-    <div class="snapshot" *ngIf="webcamImage">
+    <div #box class="snapshot" *ngIf="webcamImage">
       <img [src]="webcamImage.imageAsDataUrl" />
       <button (click)="uploadImage()" type="button">Submit</button>
     </div>

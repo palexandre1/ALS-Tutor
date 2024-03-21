@@ -16,7 +16,9 @@ train_ds = tf.keras.utils.image_dataset_from_directory(
   subset='training',
   seed=123,
   labels='inferred',
-  label_mode='categorical'
+  label_mode='categorical',
+  batch_size=32,
+  image_size=(64, 64),
   )
 validation_ds = tf.keras.utils.image_dataset_from_directory(
   directory='asl_dataset/',
@@ -24,7 +26,9 @@ validation_ds = tf.keras.utils.image_dataset_from_directory(
   seed=123,
   subset='validation',
   labels='inferred',
-  label_mode='categorical'
+  label_mode='categorical',
+  batch_size=32,
+  image_size=(64, 64),
   )
 class_names = train_ds.class_names
 print(class_names)
@@ -40,8 +44,8 @@ normalized_ds = train_ds.map(lambda x, y: (normalization_layer(x), y))
 
 # Define Variables
 num_classes = len(class_names)
-img_height = 256
-img_width = 256
+img_height = 64
+img_width = 64
 input_shape = (img_height, img_width, 3)
 
 
@@ -55,32 +59,37 @@ data_augmentation = keras.Sequential([
 #Create Model
 model = Sequential([
   layers.Input(shape=input_shape),
-  data_augmentation,
-  layers.Conv2D(16, 3, padding='same', activation='relu'),
-  layers.MaxPooling2D(),
-  layers.Conv2D(32, 3, padding='same', activation='relu'),
-  layers.MaxPooling2D(),
-  layers.Conv2D(64, 3, padding='same', activation='relu'),
-  layers.MaxPooling2D(),
-  layers.Dropout(0.2),
+  layers.Rescaling(1./255),
+  layers.Conv2D(32, kernel_size=(5,5), strides=1, padding='same', activation='relu'),
+  layers.MaxPooling2D(pool_size=(2,2), strides=2, padding ='same'),
+  layers.Conv2D(64, kernel_size=(3,3), strides=1, padding='same', activation='relu'),
+  layers.MaxPooling2D((2,2), 2, padding='same'),
+  layers.Conv2D(64, kernel_size=(3,3), strides=1, padding='same', activation='relu'),
+  layers.MaxPooling2D((2,2), 2, padding='same'),
   layers.Flatten(),
+  layers.BatchNormalization(),
   layers.Dense(128, activation='relu'),
-  layers.Dense(num_classes)
+  layers.Dropout(0.3),
+  layers.BatchNormalization(),
+  layers.Dense(num_classes, activation='softmax')
 ])
 
 model.compile(optimizer='adam',
-              loss=tf.keras.losses.CategoricalCrossentropy(from_logits=True),
+              loss=tf.keras.losses.CategoricalCrossentropy(from_logits=False),
               metrics=['accuracy'])
 
 model.summary()
 
 epochs=15
+callback = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=3)
+
 
 # Train model
 history = model.fit(
-  normalized_ds,
+  train_ds,
   validation_data=validation_ds,
-  epochs=epochs
+  epochs=epochs,
+  callbacks=[callback]
 )
 
 # Save the model

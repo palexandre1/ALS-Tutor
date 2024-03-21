@@ -24,7 +24,7 @@ def predict():
     image = request.files["file"]
     if image.filename == '':
       return jsonify('No selected file')
-    file_name = str(random.randint(0, 100000))
+    file_name = 'snapshot.jpeg'
     image.save(file_name)
 
     # invoke sign language recognition service
@@ -33,8 +33,8 @@ def predict():
     # make a prediction
     predicted_letter = asl.predict(file_name)
 
-    # remove the audio file
-    os.remove(file_name)
+    # remove the image
+    # os.remove(file_name)
 
     # send back the predicted letter in json format
     data = {"letter": predicted_letter}
