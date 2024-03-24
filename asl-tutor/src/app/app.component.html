@@ -11,7 +11,19 @@
   <div id="camera" *ngIf="visible">
     <app-camera (pictureTaken)="handleImage($event)"></app-camera>
     <div #box class="snapshot" *ngIf="webcamImage">
-      <img [src]="webcamImage.imageAsDataUrl" />
+      <!-- <img [src]="webcamImage.imageAsDataUrl" /> -->
+      <!-- Insert Image Cropper -->
+      <div class="cropper-wrapper">
+        <image-cropper
+        [imageURL]="webcamImage.imageAsDataUrl"
+        format="jpeg"
+        (imageCropped)="imageCropped($event)"
+        (imageLoaded)="imageLoaded()"
+        (cropperReady)="cropperReady()"
+        (loadImageFailed)="loadImageFailed()">
+        </image-cropper>
+      </div>
+      <img [src]="croppedImage" [style.border]="croppedImage ? '1px solid black' : 'none'" />
       <button (click)="uploadImage()" type="button">Submit</button>
     </div>
   </div>

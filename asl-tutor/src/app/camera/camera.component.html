@@ -1,6 +1,6 @@
 <div style="text-align:center">
 	<div>
-		<webcam [height]="256" [width]="256" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"
+		<webcam [height]="400" [width]="400" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"
 		 [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable" [videoOptions]="videoOptions" (cameraSwitched)="cameraWasSwitched($event)"
 		 (initError)="handleInitError($event)"></webcam>
 		<br/>
