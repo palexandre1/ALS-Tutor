@@ -8,15 +8,17 @@ Run `docker compose watch` which will start a web application that consists of a
 
 ## Access the application
 
-In your browser navigate to `http://localhost:4200` (or whatever port you defined for the front-end in `docker-compose.yml`).
+In your browser navigate to `http://localhost:4200` (or whatever port you defined for the front-end in `docker-compose.yml`)
 
 ## Train model
 
 In the flask-backend container, run `python ./model.py` to train the model. The model will save in the directory as `asl_model.keras`. Use `docker cp` to save the model to your host machine.
 
+Training analysis is saved to the directory as `analysis.png `, use `docker cp` to save the .png file to your host machine to view training results.
+
 ## Integrate model
 
-Add `asl_model.keras` file to /backend
+Add `asl_model.keras` file to /backend directory
 
 ## Dataset
 
