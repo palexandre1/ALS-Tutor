@@ -4,8 +4,6 @@
 
 <div id="container">
   <div id="button_container">
-    <button type="button">Speech to ASL</button>
-    <button type="button">Text to ASL</button>
     <button (click)="toggleCamera()" type="button">ASL to Text</button>
   </div>
   <div id="camera" *ngIf="visible">
@@ -25,6 +23,7 @@
       </div>
       <img [src]="croppedImage" [style.border]="croppedImage ? '1px solid black' : 'none'" />
       <button (click)="uploadImage()" type="button">Submit</button>
+      <p id="result" *ngIf="letter">{{letter}}</p>
     </div>
   </div>
 </div>

@@ -45,5 +45,4 @@ if __name__ == "__main__":
   for x in asl._classNames:
     letter = asl.predict(f'{x}_test.jpg')
     print(f"Predicted keywords: {letter}")
-  # letterCustom = asl.predict("snapshot.jpeg")
 
