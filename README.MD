@@ -23,3 +23,11 @@ Add `asl_model.keras` file to /backend directory
 ## Dataset
 
 The dataset used for this project was not created by myself. It is available on Kaggle as the ASL Alphabet Dataset. https://www.kaggle.com/grassknoted/asl-alphabet
+
+## Examples
+
+![alt text](image-1.png)
+
+![alt text](image-2.png)
+
+![alt text](image-3.png)
