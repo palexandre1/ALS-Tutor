@@ -1,0 +1,25 @@
+<div *ngIf="!isGameStarted">
+  <button (click)="startGame()">Start Game</button>
+</div>
+
+<div *ngIf="isGameStarted && gameState">
+  <h1>Hangman</h1>
+  <p>{{ gameState.word }}</p>
+  <p>Guessed Letters: {{ gameState.guessed_letters.join(', ') }}</p>
+  <p>Remaining Chances: {{ gameState.remaining_guesses }}</p>
+
+  <input
+    type="text"
+    [(ngModel)]="guessedLetter"
+    value="t"
+    maxlength="1"
+    placeholder="Use the camera to enter your letter..."
+    [disabled]="true"/>
+
+  <button (click)="onGuess()">Submit</button>
+
+  <div *ngIf="gameState.status === 'won' || gameState.status === 'lost'">
+    <p>{{ gameState.status === 'won' ? 'You Won!' : 'Game Over!' }}</p>
+    <button (click)="startGame()">Restart</button>
+  </div>
+</div>

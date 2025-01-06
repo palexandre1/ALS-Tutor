@@ -13,6 +13,8 @@ services:
           target: /usr/src/app/package.json
     ports:
       - "4200:4200"
+    command: ng serve --host 0.0.0.0 --proxy-config src/proxy.conf.json  # Run Angular with proxy config
+
 
   backend:
     build:

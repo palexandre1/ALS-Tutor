@@ -4,6 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { ImageCroppedEvent, ImageCropperModule } from 'ngx-image-cropper';
 import { WebcamImage } from 'ngx-webcam';
 import { CameraComponent } from './camera/camera.component';
+import { HangmanComponent } from './hangman/hangman.component';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from  '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
@@ -12,7 +13,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, CameraComponent, HttpClientModule, ImageCropperModule],
+  imports: [RouterOutlet, CommonModule, CameraComponent, HangmanComponent, HttpClientModule, ImageCropperModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -78,4 +79,5 @@ export class AppComponent {
   interface Data {
     letter: string;
   }
+
 

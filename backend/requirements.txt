@@ -1,7 +1,9 @@
 flask
 flask_cors
+flask_session
 numpy
 Pillow
 matplotlib
+# redis
 requests
 scipy

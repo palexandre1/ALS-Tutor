@@ -3,15 +3,32 @@ import json, requests
 import tensorflow as tf
 import os
 import random
+# import redis
+import secrets
 from io import BytesIO
 from tensorflow.keras.preprocessing import image
-from flask import Flask, request, jsonify, session, secrets
+from flask import Flask, request, jsonify, session
+from flask_session import Session
 from flask_cors import CORS
 from asl_recognition_service import ASL_Recognition_Service
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(32)
-CORS(app)
+CORS(app, supports_credentials=True, origins=['https://localhost'], allow_headers=["Content-Type", "Authorization"])
+
+app.config['SESSION_TYPE'] = 'filesystem'
+app.config['SESSION_PERMANENT'] = False        # Sessions expire when the browser is closed
+app.config['SESSION_USE_SIGNER'] = True
+app.config['SESSION_COOKIE_NAME'] = 'session'
+
+session_dir = '/app/sessions'
+
+app.config['SESSION_FILE_DIR'] = session_dir
+
+Session(app)
+
+
+
 
 @app.route("/")
 def home():
@@ -78,11 +95,11 @@ def guess():
             "remaining_guesses": session['remaining_guesses'],
             "guessed_letters": session['guessed_letters'],
             "status": session['status']}
-        return jsonify({updated_game_data})
+        return jsonify(updated_game_data)
     else:
         return jsonify({'error': 'Invalid JSON data'}), 400
 
-@app.route('hangman/state')
+@app.route('/hangman/state')
 def state():
     # Extract the current game state from the session (use session.get())
     word = session.get('word')
@@ -107,7 +124,7 @@ def state():
             "remaining_guesses": remaining_guesses,
             "guessed_letters": guessed_letters,
             "status": status}
-    return jsonify({updated_game_data})
+    return jsonify(updated_game_data)
 
 
 @app.route('/predict', methods=['POST'])

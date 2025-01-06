@@ -1,0 +1,6 @@
+{
+  "/hangman": {
+    "target": "http://backend:8080",
+    "secure": false
+  }
+}
